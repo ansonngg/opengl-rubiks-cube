@@ -8,7 +8,7 @@
 
 Painter::Painter()
     : shader("../shader/VertexShader.glsl", "../shader/FragmentShader.glsl") {
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 26; i++) {
         std::string path = "../texture/cube" + std::to_string(i) + ".png";
         textures[i].Setup(path.c_str());
     }
@@ -45,7 +45,11 @@ void Painter::Loop() {
                 }
 
                 glBindVertexArray(vao);
-                textures[3 * y + z].Bind(0);
+                int textureIndex = 9 * x + 3 * y + z;
+                if (textureIndex >= 14) {
+                    textureIndex--;
+                }
+                textures[textureIndex].Bind(0);
                 translateMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(x - 1, y - 1, z - 1));
                 modelMatrix = rotateMatrix * translateMatrix;
                 shader.SetMat4("modelMatrix", modelMatrix);

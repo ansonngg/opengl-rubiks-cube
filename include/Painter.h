@@ -13,7 +13,7 @@ public:
 private:
     Shader shader;
     GLuint vao, vbo, ebo;
-    Texture textures[9];
+    Texture textures[26];
 
     void Model();
 };
