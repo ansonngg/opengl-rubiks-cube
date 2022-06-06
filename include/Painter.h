@@ -2,6 +2,7 @@
 #define PAINTER_H
 
 #include "Shader.h"
+#include "Texture.h"
 
 class Painter {
 public:
@@ -11,7 +12,8 @@ public:
 
 private:
     Shader shader;
-    GLuint vao[26], vbo[26], ebo[26];
+    GLuint vao, vbo, ebo;
+    Texture textures[9];
 
     void Model();
 };

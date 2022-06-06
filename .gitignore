@@ -2,4 +2,5 @@ build/
 include/glad/
 include/glm/
 include/KHR/
+include/stb_image.h
 src/glad.c
