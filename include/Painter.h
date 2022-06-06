@@ -6,13 +6,15 @@
 
 class Painter {
 public:
-    Painter();
+    Painter(int width, int height);
     void Initialize();
     void Loop();
 
 private:
-    Shader shader;
+    const int SCR_WIDTH, SCR_HEIGHT;
+    glm::vec3 eye, center;
     GLuint vao, vbo, ebo;
+    Shader shader;
     Texture textures[26];
 
     void Model();

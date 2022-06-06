@@ -4,10 +4,12 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "GlobalVar.h"
-
-Painter::Painter()
-    : shader("../shader/VertexShader.glsl", "../shader/FragmentShader.glsl") {
+Painter::Painter(int width, int height)
+    : SCR_WIDTH(width)
+    , SCR_HEIGHT(height)
+    , eye(0.0f, 5.0f, 10.0f)
+    , center(0.0f, 0.0f, 0.0f)
+    , shader("../shader/VertexShader.glsl", "../shader/FragmentShader.glsl") {
     for (int i = 0; i < 26; i++) {
         std::string path = "../texture/cube" + std::to_string(i) + ".png";
         textures[i].Setup(path.c_str());
@@ -29,10 +31,10 @@ void Painter::Loop() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shader.Use();
 
-    glm::mat4 rotateMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(30.0f), glm::vec3(1.0f, 1.0f, 0.0f));;
+    glm::mat4 rotateMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(30.0f), glm::vec3(0.0f, 1.0f, 0.0f));;
     glm::mat4 translateMatrix;
     glm::mat4 modelMatrix;
-    glm::mat4 viewMatrix = glm::lookAt(glm::vec3(EYE_X, EYE_Y, EYE_Z), glm::vec3(CENTER_X, CENTER_Y, CENTER_Z), glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::mat4 viewMatrix = glm::lookAt(eye, center, glm::vec3(0.0f, 1.0f, 0.0f));
     shader.SetMat4("viewMatrix", viewMatrix);
     glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
     shader.SetMat4("projectionMatrix", projectionMatrix);
