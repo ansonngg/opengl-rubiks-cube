@@ -3,11 +3,15 @@
 
 namespace Controller {
 struct Keyboard {
-	bool up{ false };
-	bool down{ false };
-	bool left{ false };
-	bool right{ false };
-} keyboard;
+	bool acceptInput{ true };
+	bool x{ false };
+	bool y{ false };
+	bool z{ false };
+	bool xp{ false };
+	bool yp{ false };
+	bool zp{ false };
+	bool f{ false };
+};
 }
 
 #endif

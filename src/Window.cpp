@@ -1,7 +1,5 @@
 #include "Window.h"
 
-#include <glad/glad.h>
-
 #include "Callback.h"
 #include "Painter.h"
 
@@ -36,6 +34,8 @@ int Window::Exec() {
         return -1;
     }
 
+    Painter painter(SCR_WIDTH, SCR_HEIGHT);
+    glfwSetWindowUserPointer(window, (void *)&painter);
     glfwSetFramebufferSizeCallback(window, Callback::FramebufferSize);
     glfwSetKeyCallback(window, Callback::Key);
 
@@ -45,7 +45,6 @@ int Window::Exec() {
         glEnable(GL_MULTISAMPLE);
     }
 
-    Painter painter(SCR_WIDTH, SCR_HEIGHT);
     painter.Initialize();
 
     while (!glfwWindowShouldClose(window)) {
