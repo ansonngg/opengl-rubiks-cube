@@ -8,7 +8,8 @@
 
 class Shader {
 public:
-    Shader(const std::string &vShaderPath, const std::string &fShaderPath);
+    Shader();
+    void Setup(const std::string &vShaderPath, const std::string &fShaderPath);
     void Use();
     void SetBool(const char *name, bool value);
     void SetInt(const char *name, int value);

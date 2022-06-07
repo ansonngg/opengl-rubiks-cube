@@ -15,7 +15,8 @@ private:
     glm::vec3 eye, center;
     GLuint vao, vbo, ebo;
     Shader shader;
-    Texture textures[26];
+    Texture textures[27];
+    glm::mat4 rotateMatrices[27];
 
     void Model();
 };

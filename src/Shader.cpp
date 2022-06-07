@@ -5,7 +5,10 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-Shader::Shader(const std::string &vShaderPath, const std::string &fShaderPath) {
+Shader::Shader()
+    : ID(0) {}
+
+void Shader::Setup(const std::string &vShaderPath, const std::string &fShaderPath) {
     std::string vString = ReadShaderCode(vShaderPath);
     std::string fString = ReadShaderCode(fShaderPath);
     const char *vShaderCode = vString.c_str();
@@ -30,7 +33,7 @@ Shader::Shader(const std::string &vShaderPath, const std::string &fShaderPath) {
     glGetShaderiv(fShaderID, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(fShaderID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n";
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n";
         std::cout << infoLog << '\n';
     };
 

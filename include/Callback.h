@@ -1,6 +1,7 @@
 #ifndef CALLBACK_H
 #define CALLBACK_H
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Callback {

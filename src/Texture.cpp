@@ -5,6 +5,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+Texture::Texture()
+	: ID(0)
+	, anisotropy(0.0f) {}
+
 void Texture::Setup(const char *path) {
 	stbi_set_flip_vertically_on_load(true);
 
@@ -29,6 +33,10 @@ void Texture::Setup(const char *path) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	if (anisotropy > 1) {
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY, anisotropy);
+	}
 
 	if (data) {
 		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);

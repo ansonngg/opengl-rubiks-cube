@@ -15,6 +15,10 @@ file(
     ${SOURCE_DIR}/*.c
     ${SOURCE_DIR}/*.cpp
 )
+list(
+    REMOVE_ITEM SOURCES
+    ${INCLUDE_DIR}/stb_image.h
+)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 

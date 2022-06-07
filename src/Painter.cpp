@@ -7,23 +7,29 @@
 Painter::Painter(int width, int height)
     : SCR_WIDTH(width)
     , SCR_HEIGHT(height)
-    , eye(0.0f, 5.0f, 10.0f)
-    , center(0.0f, 0.0f, 0.0f)
-    , shader("../shader/VertexShader.glsl", "../shader/FragmentShader.glsl") {
-    for (int i = 0; i < 26; i++) {
-        std::string path = "../texture/cube" + std::to_string(i) + ".png";
-        textures[i].Setup(path.c_str());
-    }
-
+    , eye(-5.0f, 5.0f, 10.0f)
+    , center(0.0f, 0.0f, 0.0f) {
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
     glGenBuffers(1, &ebo);
+
+    for (int i = 0; i < 27; i++) {
+        rotateMatrices[i] = glm::mat4(1.0f);
+    }
 }
 
 void Painter::Initialize() {
     Model();
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+    shader.Setup("../shader/VertexShader.glsl", "../shader/FragmentShader.glsl");
+    for (int i = 0; i < 27; i++) {
+        if (i == 13) {
+            continue;
+        }
+
+        textures[i].SetAnisotropy(16.0f);
+        std::string path = "../texture/cube" + std::to_string(i) + ".png";
+        textures[i].Setup(path.c_str());
+    }
 }
 
 void Painter::Loop() {
@@ -31,12 +37,12 @@ void Painter::Loop() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shader.Use();
 
-    glm::mat4 rotateMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(30.0f), glm::vec3(0.0f, 1.0f, 0.0f));;
     glm::mat4 translateMatrix;
     glm::mat4 modelMatrix;
     glm::mat4 viewMatrix = glm::lookAt(eye, center, glm::vec3(0.0f, 1.0f, 0.0f));
-    shader.SetMat4("viewMatrix", viewMatrix);
     glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
+
+    shader.SetMat4("viewMatrix", viewMatrix);
     shader.SetMat4("projectionMatrix", projectionMatrix);
 
     for (int x = 0; x < 3; x++) {
@@ -47,13 +53,10 @@ void Painter::Loop() {
                 }
 
                 glBindVertexArray(vao);
-                int textureIndex = 9 * x + 3 * y + z;
-                if (textureIndex >= 14) {
-                    textureIndex--;
-                }
-                textures[textureIndex].Bind(0);
+                int cubeIndex = 9 * x + 3 * y + z;
+                textures[cubeIndex].Bind(0);
                 translateMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(x - 1, y - 1, z - 1));
-                modelMatrix = rotateMatrix * translateMatrix;
+                modelMatrix = rotateMatrices[cubeIndex] * translateMatrix;
                 shader.SetMat4("modelMatrix", modelMatrix);
                 glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
             }
