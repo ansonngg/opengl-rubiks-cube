@@ -17,7 +17,7 @@ public:
 
 private:
     const int SCR_WIDTH, SCR_HEIGHT;
-    const std::vector<int> LAYERS_INDICES[1];
+    const std::vector<int> LAYERS_INDICES[15];
 
     glm::vec3 eye, center;
     float rotateTime;
@@ -28,14 +28,10 @@ private:
     glm::mat4 tempTransMatrices[27];
     int cubeIndices[27];
     bool rotating;
-    float lastFrame;
-
-    enum class Rotate {
-        X, Y, Z, XP, YP, ZP
-    };
 
     enum class Move {
-        F, B, U, D, L, R, M, E, S
+        F, B, U, D, L, R, M, E, S, F2, B2, U2, D2, L2, R2,
+        FP, BP, UP, DP, LP, RP, MP, EP, SP, F2P, B2P, U2P, D2P, L2P, R2P
     };
 
     void Model();
@@ -43,7 +39,11 @@ private:
     bool RotateCube(float angle, glm::vec3 axis);
     bool MoveLayer(Move move);
     void RotateOnX(int *arr);
+    void RotateOnY(int *arr);
     void RotateOnZ(int *arr);
+    void RotateOnXP(int *arr);
+    void RotateOnYP(int *arr);
+    void RotateOnZP(int *arr);
     void RoundMat4(glm::mat4 &matrix);
 };
 
