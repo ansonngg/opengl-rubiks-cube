@@ -62,7 +62,7 @@ void RubiksCube::Paint(Shader shader, const glm::mat4 &vpMatrix) {
     }
 }
 
-bool RubiksCube::RotateCube(RubiksCube::Rotate rotate) {
+bool RubiksCube::RotateCube(Rotate rotate) {
     if (!rotating) {
         rotating = true;
         glfwSetTime(0);
@@ -93,7 +93,7 @@ bool RubiksCube::RotateCube(RubiksCube::Rotate rotate) {
     return false;
 }
 
-bool RubiksCube::MoveLayer(RubiksCube::Move move) {
+bool RubiksCube::MoveLayer(Move move) {
     if (!rotating) {
         rotating = true;
         glfwSetTime(0);
@@ -196,7 +196,7 @@ void RubiksCube::Model() {
     glBindVertexArray(0);
 }
 
-float RubiksCube::GetAngleAndAxis(RubiksCube::Rotate rotate, glm::vec3 &axis) {
+float RubiksCube::GetAngleAndAxis(Rotate rotate, glm::vec3 &axis) {
     float angle = 0.0f;
 
     switch (rotate) {
@@ -229,7 +229,7 @@ float RubiksCube::GetAngleAndAxis(RubiksCube::Rotate rotate, glm::vec3 &axis) {
     return angle;
 }
 
-float RubiksCube::GetAngleAndAxis(RubiksCube::Move move, glm::vec3 &axis) {
+float RubiksCube::GetAngleAndAxis(Move move, glm::vec3 &axis) {
     float angle = 0.0f;
 
     switch (move) {
