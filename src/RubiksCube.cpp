@@ -162,7 +162,7 @@ void RubiksCube::Model() {
     };
 
     GLuint indices[] = {
-        //Front
+        // Front
          0,  1,  3,
          1,  2,  3,
         // Back
