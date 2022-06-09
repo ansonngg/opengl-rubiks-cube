@@ -7,6 +7,8 @@ public:
     int Exec();
 private:
     const int SCR_WIDTH, SCR_HEIGHT, SAMPLE_NUM;
+
+    void PrintOpenGLInfo();
 };
 
 #endif // WINDOW_N

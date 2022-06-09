@@ -34,6 +34,8 @@ int Window::Exec() {
         return -1;
     }
 
+    PrintOpenGLInfo();
+
     Painter painter(SCR_WIDTH, SCR_HEIGHT);
     glfwSetWindowUserPointer(window, (void *)&painter);
     glfwSetFramebufferSizeCallback(window, Callback::FramebufferSize);
@@ -55,4 +57,13 @@ int Window::Exec() {
 
     glfwTerminate();
     return 0;
+}
+
+void Window::PrintOpenGLInfo() {
+    const GLubyte *vendor = glGetString(GL_VENDOR);
+    const GLubyte *renderer = glGetString(GL_RENDERER);
+    const GLubyte *version = glGetString(GL_VERSION);
+    std::cout << "OpenGL vendor : " << vendor << '\n';
+    std::cout << "Renderer      : " << renderer << '\n';
+    std::cout << "OpenGL version: " << version << '\n';
 }
